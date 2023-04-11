@@ -2,16 +2,20 @@
 #define GAME_HPP
 #include "player.hpp"
 #include <vector>
+#include <array>
 #include "card.hpp"
 
 namespace ariel{}
 using namespace std;
 
+constexpr int ARRAY_SIZE =53;
+
 class Game{
     private:
     Player &p1_;
     Player &p2_;
-    Card cards[53];
+    //Card cards[53];
+    array<Card,ARRAY_SIZE> cards;
     string summary;
     string last_turn;
     int matches;
@@ -20,14 +24,14 @@ class Game{
     void printDeck();
     void splitDecks();
     string getTurn(string name, Card card);
-    int battle(Player p1, Player p2, Card card1, Card card2);
+    int battle(Player pl1, Player pl2, Card card1, Card card2);
 
 
     
 
     public:
     
-    Game(Player &p1, Player &p2);
+    Game(Player &pl1, Player &pl2);
 
     void playTurn();
     void printLastTurn();
