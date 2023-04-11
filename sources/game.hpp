@@ -15,7 +15,8 @@ class Game{
     Player &p1_;
     Player &p2_;
     //Card cards[53];
-    array<Card,ARRAY_SIZE> cards;
+    //array<Card,ARRAY_SIZE> cards;
+    vector<Card> cards;
     string summary;
     string last_turn;
     int matches;
