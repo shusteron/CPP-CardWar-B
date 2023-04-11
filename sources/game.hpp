@@ -8,21 +8,16 @@
 namespace ariel{}
 using namespace std;
 
-constexpr int ARRAY_SIZE =53;
-
 class Game{
     private:
     Player &p1_;
     Player &p2_;
-    //Card cards[53];
-    //array<Card,ARRAY_SIZE> cards;
     vector<Card> cards;
     string summary;
     string last_turn;
     int matches;
     void shuffle();
     void createDeck();
-    void printDeck();
     void splitDecks();
     string getTurn(string name, Card card);
     int battle(Player pl1, Player pl2, Card card1, Card card2);

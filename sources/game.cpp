@@ -19,34 +19,12 @@ p1_(p1),p2_(p2)
     this->last_turn="";
     this->last_turn="";
     this->cards={};
-    // for(int i=0;i<53;i++){
-    //     this->cards[i].setShape("");
-    //     this->cards[i].setValue(0);
 
-    // }
-     createDeck();
-     splitDecks();
+    createDeck();
+    splitDecks();
 }
 
 void Game::createDeck(){
-    // int index=1;
-    // for(int i=1;i<=13;i++){
-    //     Card card("hearts",i);
-    //     this->cards[index++]=card;
-    // }
-    // for(int i=1;i<=13;i++){
-    //     Card card("clubs",i);
-    //     this->cards[index++]=card;
-    // }
-    // for(int i=1;i<=13;i++){
-    //     Card card("diamonds",i);
-    //     this->cards[index++]=card;
-    // }
-    // for(int i=1;i<=13;i++){
-    //     Card card("spades",i);
-    //     this->cards[index++]=card;
-    // }
-
     for(int i=1;i<=13;i++){
         Card card("hearts",i);
         this->cards.push_back(card);
@@ -63,43 +41,13 @@ void Game::createDeck(){
         Card card("spades",i);
         this->cards.push_back(card);
     }
-
-    
-
-
-
-
     shuffle();
 }
 
 void Game::shuffle(){
-    auto rng = default_random_engine{};
+    auto rd = random_device{};
+    auto rng = default_random_engine{rd()};
     ::shuffle(begin(this->cards),end(this->cards),rng);
-//     Card shuffled_deck[53];
-//     int count_minus=0;
-//     int index=1;
-//     srand(time(nullptr));
-//     while(count_minus<52){
-//         // Generate random index number between 1 to 53. Without the 0 index.
-//         int random = rand()%53+1;  
-//         // Check if the card already exists in the shuffled deck. 
-//         if(shuffled_deck[index].getValue()!= this->cards[random].getValue() && shuffled_deck[index].getShape()!= this->cards[random].getShape()){
-//             shuffled_deck[index].setShape(this->cards[random].getShape());
-//             shuffled_deck[index].setValue(this->cards[random].getValue());
-//             index++;
-//             count_minus++;
-//         }
-//     }
-//     //Setting the original deck to the shuffeld one.
-//     for(int i=1;i<53;i++){
-//         this->cards[i].setShape(shuffled_deck[i].getShape());
-//         this->cards[i].setValue(shuffled_deck[i].getValue());
-
-//     }
-
-
-
-
 }
 void Game::splitDecks(){
     // Dealing the deck to the players.
@@ -114,11 +62,6 @@ void Game::splitDecks(){
         }
     }        
 }
-// void Game::printDeck(){
-//     for(int i=1;i<53;i++){
-//         cout << to_string(this->cards[i].getValue()) + " of " + this->cards[i].getShape()<<endl;
-//     }
-// }
 string Game::getTurn(string name, Card card){
     
     return name + " played " + to_string(card.getValue()) + " of " + card.getShape()+".";
@@ -227,9 +170,6 @@ void Game::playAll(){
     while(this->p1_.stacksize()>0 ){
         playTurn();
     }
-//     playTurn();
-//     playTurn();
-//     playTurn();
 }
 void Game::printLastTurn(){
     cout<< this->last_turn<<endl;
