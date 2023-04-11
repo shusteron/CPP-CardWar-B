@@ -17,7 +17,6 @@ class Player{
     
     
     public:
-        Player(){}
         Player(string name);
         int stacksize();
         int cardesTaken();

@@ -10,7 +10,6 @@ class Card{
     string shape;
 
     public:
-    Card(){}
     Card(string shape, int value);
     void setValue(int value);
     void setShape(string shape);

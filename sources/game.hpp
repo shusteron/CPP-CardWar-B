@@ -27,7 +27,6 @@ class Game{
 
     public:
     
-    //Game(){}
     Game(Player &p1, Player &p2);
 
     void playTurn();
