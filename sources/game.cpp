@@ -6,7 +6,12 @@
 #include <algorithm>
 #include <random>
 
+#define PRINCE 11
+#define QUEEN 12
+#define KING 13
 #define ACE 1
+
+
 int draws=0;
 
 
@@ -25,6 +30,7 @@ p1_(p1),p2_(p2)
 }
 
 void Game::createDeck(){
+    // Each for loop for card shape.
     for(int i=1;i<=13;i++){
         Card card("hearts",i);
         this->cards.push_back(card);
@@ -41,6 +47,7 @@ void Game::createDeck(){
         Card card("spades",i);
         this->cards.push_back(card);
     }
+    // Shuffles the deck.
     shuffle();
 }
 
@@ -63,12 +70,28 @@ void Game::splitDecks(){
     }        
 }
 string Game::getTurn(string name, Card card){
+    if(card.getValue()==PRINCE){
+        return name + " played prince of " + card.getShape()+".";
+    }
+    if(card.getValue()==QUEEN){
+        return name + " played queen of " + card.getShape()+".";
+    }
+    if(card.getValue()==KING){
+        return name + " played king of " + card.getShape()+".";
+    }
+    if(card.getValue()==ACE){
+        return name + " played ace of " + card.getShape()+".";
+    }
     
     return name + " played " + to_string(card.getValue()) + " of " + card.getShape()+".";
 
 }
 
 int Game::battle(Player p1, Player p2, Card card1, Card card2){
+    // A method that recieves two players and cards and returns 0/1/2.
+    // 0 - draw.
+    // 1- p1 won.
+    // 2- p2 won.
     if(card1.getValue() == 1){
         if(card2.getValue()==2){
             return 2;
@@ -99,9 +122,11 @@ int Game::battle(Player p1, Player p2, Card card1, Card card2){
 }
 
 void Game::playTurn(){
+    // Checks if its same player.
     if(&this->p1_ == &this->p2_){
         throw invalid_argument("received same player");
     }
+    // Checks if there are cards to draw.
     if(this->p1_.stacksize()==0){
         throw invalid_argument("No cards left to play.");
     }
@@ -122,7 +147,7 @@ void Game::playTurn(){
             card1 = this->p1_.getCard();
             card2 = this->p2_.getCard();
         }
-        else{
+        else{   //There is not enough cards to play with in a draw case, so each player gets back his own cards.
             while(this->p1_.stacksize()>0){
                 this->p1_.getCard();
                 this->p2_.getCard();
@@ -131,11 +156,11 @@ void Game::playTurn(){
             }
             return;
         }
+        // Checking once again the match up between the cards.
         match = battle(this->p1_,this->p2_,card1,card2);
-
     }
 
-    if(match==1){
+    if(match==1){   //PLayer1 won.
     this->p1_.cardsWon();
     while(draws!=0){
         this->p1_.cardsWon();
@@ -148,24 +173,21 @@ void Game::playTurn(){
     this->p2_.addLoss();                
     this->summary+=this->last_turn;  
     }
-    else if(match==2){
+    else if(match==2){  //Player2 won.
         this->p2_.cardsWon();
         while(draws!=0){
-        this->p2_.cardsWon();
-        draws-=2;
-    }
+            this->p2_.cardsWon();
+            draws-=2;
+        }
         this->last_turn= this->getTurn(this->p1_.getName(),card1)+
                         this->getTurn(this->p2_.getName(),card2)+
                         this->p2_.getName() + " won.\n";
         this->p2_.addWin();
         this->p1_.addLoss();                  
         this->summary+=this->last_turn;                             
-        }
+    }
 }
     
-
-
-
 void Game::playAll(){
     while(this->p1_.stacksize()>0 ){
         playTurn();

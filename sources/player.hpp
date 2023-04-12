@@ -22,17 +22,14 @@ class Player{
         int cardesTaken();
         void addCard(Card card);
         Card getCard();
-        int peek();
         void cardsWon();
         string getName();
-        Card back();
         void addWin();
         void addDraw();
         void addLoss();
         int getWin();
         int getDraw();
         int getLoss();
-        vector<Card> getDeck();
 
 
 };

@@ -15,7 +15,6 @@ class Game{
     vector<Card> cards;
     string summary;
     string last_turn;
-    int matches;
     void shuffle();
     void createDeck();
     void splitDecks();

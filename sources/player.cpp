@@ -27,6 +27,7 @@ string Player::getName(){
     return this->name;
 }
 
+// Pushing a card to player's deck.
 void Player::addCard(Card card){
     this->deck.push_back(card);
 }
@@ -44,7 +45,6 @@ void Player::addLoss(){
 void Player::addDraw(){
     this->draws++;
 }
-
 int Player::getWin(){
     return this->wins;
 }
@@ -64,20 +64,4 @@ Card Player::getCard(){
     throw invalid_argument("Deck is empty.");
 }
 
-vector<Card> Player::getDeck(){
-    return this->deck;
-}
-
-int Player::peek(){
-    if(this->stacksize()>0){
-        return this->deck.back().getValue();
-    }
-    throw "Deck is empty.";
-}
-Card Player::back(){
-    if(this->stacksize()>0){
-        return this->deck.back();
-    }
-    throw "Deck is empty.";
-}
 
